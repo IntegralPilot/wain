@@ -151,6 +151,7 @@ dependencies = [
 name = "wain-validate"
 version = "0.1.5"
 dependencies = [
+ "hashbrown",
  "wain-ast",
 ]
 

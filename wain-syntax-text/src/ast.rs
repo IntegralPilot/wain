@@ -1,6 +1,10 @@
 use alloc::fmt;
 use alloc::{borrow::Cow, vec::Vec};
+#[cfg(feature = "hashbrown")]
 use hashbrown::HashMap;
+
+#[cfg(not(feature = "hashbrown"))]
+use std::collections::HashMap;
 
 // TODO: Remove duplication between text format AST and binary format AST.
 // For example, wat::ValType and wasm::TableType has the same structure. So we can use

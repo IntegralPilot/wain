@@ -4,7 +4,11 @@ use alloc::boxed::Box;
 use alloc::fmt;
 use alloc::{vec, vec::Vec};
 use core::mem;
+#[cfg(feature = "hashbrown")]
 use hashbrown::HashMap;
+
+#[cfg(not(feature = "hashbrown"))]
+use std::collections::HashMap;
 use wain_ast as wasm;
 
 #[cfg_attr(test, derive(Debug))]

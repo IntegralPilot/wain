@@ -11,7 +11,12 @@ use core::mem;
 use core::ops;
 use core::str;
 use core::str::FromStr;
+
+#[cfg(feature = "hashbrown")]
 use hashbrown::HashMap;
+
+#[cfg(not(feature = "hashbrown"))]
+use std::collections::HashMap;
 
 #[cfg_attr(test, derive(Debug))]
 pub enum ParseErrorKind<'source> {
@@ -2259,10 +2264,18 @@ impl<'s> Parse<'s> for MemoryAbbrev<'s> {
                             }
                             parser.closing_paren("memory")?;
 
+                            #[cfg(feature = "libm")]
                             use libm::ceil;
 
+                            #[cfg(not(feature = "libm"))]
+                            use std::f64;
+
                             // Infer memory limits from page size (64 * 1024 = 65536)
+                            #[cfg(feature = "libm")]
                             let n = ceil(data.len() as f64 / 65536.0) as u32;
+
+                            #[cfg(not(feature = "libm"))]
+                            let n = (data.len() as f64 / 65536.0).ceil() as u32;
 
                             return Ok(MemoryAbbrev::Data(
                                 Memory {

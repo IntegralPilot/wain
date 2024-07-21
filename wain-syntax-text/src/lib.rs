@@ -1,4 +1,4 @@
-#![no_std]
+#![cfg_attr(feature = "no_std", no_std)]
 #![forbid(unsafe_code)]
 #![warn(clippy::dbg_macro)]
 #![allow(clippy::cognitive_complexity)]

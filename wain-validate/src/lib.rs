@@ -1,7 +1,7 @@
 // Module validation for Wasm module
 // - https://webassembly.github.io/spec/core/valid/index.html
 // - https://webassembly.github.io/spec/core/appendix/algorithm.html#algo-valid
-#![no_std]
+#![cfg_attr(feature = "no_std", no_std)]
 #![forbid(unsafe_code)]
 #![warn(clippy::dbg_macro)]
 
@@ -17,7 +17,11 @@ pub use error::{Error, Result};
 
 use alloc::borrow::Cow;
 use error::ErrorKind;
+#[cfg(feature = "hashbrown")]
 use hashbrown::HashMap;
+
+#[cfg(not(feature = "hashbrown"))]
+use std::collections::HashMap;
 use wain_ast::source::Source;
 use wain_ast::*;
 

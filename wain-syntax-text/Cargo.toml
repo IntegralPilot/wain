@@ -19,9 +19,13 @@ consolidate-commits = false
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-hashbrown = "0.14.5"
-libm = "0.2.8"
+hashbrown = { version = "0.14.5", optional = true }
+libm = { version = "0.2.8", optional = true }
 wain-ast = { path = "../wain-ast", version = "0.2" }
+
+[features]
+default = []
+no_std = ["hashbrown", "libm"]
 
 [badges]
 maintenance = { status = "actively-developed" }
