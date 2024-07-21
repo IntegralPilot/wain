@@ -126,6 +126,7 @@ version = "0.2.2"
 name = "wain-exec"
 version = "0.3.1"
 dependencies = [
+ "libm",
  "wain-ast",
  "wain-syntax-text",
  "wain-validate",

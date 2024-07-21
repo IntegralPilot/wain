@@ -1,8 +1,8 @@
 use crate::value::{LittleEndian, Value};
-use std::cmp::Ordering;
-use std::fmt;
-use std::mem;
-use std::mem::size_of;
+use alloc::{fmt, vec::Vec};
+use core::cmp::Ordering;
+use core::mem;
+use core::mem::size_of;
 use wain_ast::{AsValType, ValType};
 
 // Vec<Value> consumes too much space since its element size is always 16bytes.

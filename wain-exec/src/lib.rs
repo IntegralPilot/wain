@@ -1,6 +1,8 @@
+#![cfg_attr(feature = "no_std", no_std)]
 #![forbid(unsafe_code)]
 #![warn(clippy::dbg_macro)]
 
+extern crate alloc;
 extern crate wain_ast;
 
 pub mod trap;
@@ -14,14 +16,22 @@ mod stack;
 mod table;
 mod value;
 
-pub use import::{check_func_signature, DefaultImporter, ImportInvalidError, ImportInvokeError, Importer};
+#[cfg(not(feature = "no_std"))]
+pub use import::DefaultImporter;
+
+pub use import::{check_func_signature, ImportInvalidError, ImportInvokeError, Importer};
 pub use memory::Memory;
 pub use runtime::Runtime;
 pub use stack::Stack;
 pub use value::Value;
 
+#[cfg(not(feature = "no_std"))]
 use std::io;
+
+#[cfg(not(feature = "no_std"))]
 use trap::Result;
+
+#[cfg(not(feature = "no_std"))]
 use wain_ast::Module;
 
 /// A convenient function to execute a WebAssembly module.
@@ -37,6 +47,9 @@ use wain_ast::Module;
 ///
 /// You will need importer for initializing Runtime struct. Please use DefaultImporter::with_stdio()
 /// or make your own importer struct which implements Importer trait.
+///
+/// Please note that this function is not available when `no_std` feature is enabled. You need to create your own `DefaultImporter` and `Runtime` instances using the avaliable STDIO streams on your device in this case.
+#[cfg(not(feature = "no_std"))]
 pub fn execute(module: &Module<'_>) -> Result<()> {
     let stdin = io::stdin();
     let stdout = io::stdout();

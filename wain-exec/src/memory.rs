@@ -1,8 +1,9 @@
 use crate::globals::Globals;
 use crate::trap::{Result, Trap, TrapReason};
 use crate::value::LittleEndian;
-use std::any;
-use std::mem::size_of;
+use alloc::{vec, vec::Vec};
+use core::any;
+use core::mem::size_of;
 use wain_ast as ast;
 
 const PAGE_SIZE: usize = 65536; // 64Ki

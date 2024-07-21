@@ -1,5 +1,6 @@
 use crate::globals::Globals;
 use crate::trap::{Result, Trap, TrapReason};
+use alloc::{vec, vec::Vec};
 use wain_ast as ast;
 
 // Table instance

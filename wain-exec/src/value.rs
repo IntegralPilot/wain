@@ -1,6 +1,6 @@
-use std::fmt;
-use std::mem::size_of;
-use std::ops;
+use alloc::fmt;
+use core::mem::size_of;
+use core::ops;
 use wain_ast::ValType;
 
 #[cfg_attr(test, derive(Debug))]

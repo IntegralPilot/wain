@@ -1,6 +1,10 @@
 use crate::memory::Memory;
 use crate::stack::Stack;
+
+#[cfg(not(feature = "no_std"))]
 use std::io::{Read, Write};
+
+use alloc::string::String;
 use wain_ast::ValType;
 
 pub enum ImportInvalidError {
@@ -27,7 +31,7 @@ pub fn check_func_signature(
     expected_params: &'static [ValType],
     expected_ret: Option<ValType>,
 ) -> Option<ImportInvalidError> {
-    if actual_params.eq(expected_params) && actual_ret == expected_ret {
+    if actual_params == expected_params && actual_ret == expected_ret {
         return None;
     }
     Some(ImportInvalidError::SignatureMismatch {
@@ -36,17 +40,25 @@ pub fn check_func_signature(
     })
 }
 
-pub struct DefaultImporter<R: Read, W: Write> {
+/// With `no_std` feature enabled, there is no `DefaultImporter`, it is up to you to create one suitable for your system.
+#[cfg(not(feature = "no_std"))]
+pub struct DefaultImporter<R, W>
+where
+    R: Read,
+    W: Write,
+{
     stdout: W,
     stdin: R,
 }
 
+#[cfg(not(feature = "no_std"))]
 impl<R: Read, W: Write> Drop for DefaultImporter<R, W> {
     fn drop(&mut self) {
         let _ = self.stdout.flush();
     }
 }
 
+#[cfg(not(feature = "no_std"))]
 impl<R: Read, W: Write> DefaultImporter<R, W> {
     pub fn with_stdio(stdin: R, stdout: W) -> Self {
         Self { stdout, stdin }
@@ -104,6 +116,7 @@ impl<R: Read, W: Write> DefaultImporter<R, W> {
     }
 }
 
+#[cfg(not(feature = "no_std"))]
 impl<R: Read, W: Write> Importer for DefaultImporter<R, W> {
     fn validate(&self, name: &str, params: &[ValType], ret: Option<ValType>) -> Option<ImportInvalidError> {
         use ValType::*;

@@ -77,7 +77,6 @@ float_to_int_sat!(f64_to_i64_sat, f64, i64);
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::{f32, f64};
 
     trait NextAfter {
         fn next_after(self, _: Self) -> Self;

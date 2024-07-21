@@ -1,5 +1,7 @@
 use crate::trap::{Result, Trap};
 use crate::value::{LittleEndian, Value};
+use alloc::boxed::Box;
+use alloc::{vec, vec::Vec};
 use wain_ast::{Global, GlobalKind, InsnKind, ValType};
 
 // Fixed-size any values store indexed in advance
@@ -102,7 +104,7 @@ impl Globals {
 mod tests {
     use super::*;
     use crate::trap::TrapReason;
-    use std::borrow::Cow;
+    use alloc::borrow::Cow;
     use wain_ast::{Import, InsnKind, Instruction, Name, ValType};
 
     #[test]

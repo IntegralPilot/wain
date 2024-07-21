@@ -19,6 +19,7 @@ consolidate-commits = false
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+libm = { version = "0.2.8", optional = true }
 wain-ast = { path = "../wain-ast", version = "0.2" }
 
 [dev-dependencies]
@@ -27,3 +28,7 @@ wain-validate = { path = "../wain-validate", version = "0.1" }
 
 [badges]
 maintenance = { status = "actively-developed" }
+
+[features]
+default = []
+no_std = ["libm"]

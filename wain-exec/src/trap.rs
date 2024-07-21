@@ -1,5 +1,10 @@
 use crate::value::Value;
-use std::fmt;
+use alloc::{
+    boxed::Box,
+    fmt,
+    string::{String, ToString},
+    vec::Vec,
+};
 use wain_ast::{Import, ValType};
 
 #[cfg_attr(test, derive(Debug))]
@@ -215,4 +220,4 @@ impl fmt::Display for Trap {
     }
 }
 
-pub type Result<T> = ::std::result::Result<T, Box<Trap>>;
+pub type Result<T> = ::core::result::Result<T, Box<Trap>>;
