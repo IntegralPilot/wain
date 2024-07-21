@@ -1,5 +1,8 @@
+#![no_std]
 #![forbid(unsafe_code)]
 #![warn(clippy::dbg_macro)]
+
+extern crate alloc;
 
 mod error;
 mod leb128;

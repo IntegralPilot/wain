@@ -1,9 +1,12 @@
+use core::marker::PhantomData;
+
 use crate::error::{Error, ErrorKind, Result};
 use crate::leb128::Leb128;
 use crate::source::BinarySource;
-use std::borrow::Cow;
-use std::marker::PhantomData;
-use std::str;
+use alloc::borrow::Cow;
+use alloc::boxed::Box;
+use alloc::{str, vec};
+use alloc::vec::Vec;
 use wain_ast::*;
 
 mod section_id {
@@ -1009,6 +1012,9 @@ impl<'s> Parse<'s> for DataSegment<'s> {
 
 #[cfg(test)]
 mod tests {
+    // std is allowed for tests
+    extern crate std;
+
     use super::*;
     use std::env;
     use std::fs;

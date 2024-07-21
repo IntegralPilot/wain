@@ -2,9 +2,11 @@
 // - https://webassembly.github.io/spec/core/binary/values.html#integers
 // - https://en.wikipedia.org/wiki/LEB128
 
+use alloc::boxed::Box;
+
 use crate::error::ErrorKind;
 
-type Result<T> = ::std::result::Result<T, Box<ErrorKind>>;
+type Result<T> = ::core::result::Result<T, Box<ErrorKind>>;
 
 // Note: Self must be Sized because trait function returns Self
 pub trait Leb128: Sized {
@@ -101,6 +103,8 @@ fn read_32(bytes: &[u8], signed: bool) -> Result<(u32, usize)> {
 
 #[cfg(test)]
 mod tests {
+    use alloc::vec;
+
     use super::*;
 
     #[test]

@@ -1,6 +1,8 @@
+use core::str::Utf8Error;
+
+use alloc::{boxed::Box, fmt, vec::Vec};
+
 use crate::source::describe_position;
-use std::fmt;
-use std::str::Utf8Error;
 
 #[cfg_attr(test, derive(Debug))]
 pub enum ErrorKind {
@@ -123,4 +125,4 @@ impl<'s> fmt::Display for Error<'s> {
     }
 }
 
-pub type Result<'s, T> = ::std::result::Result<T, Box<Error<'s>>>;
+pub type Result<'s, T> = ::core::result::Result<T, Box<Error<'s>>>;
