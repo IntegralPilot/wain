@@ -1,4 +1,4 @@
-use std::fmt;
+use alloc::fmt;
 
 // Trait to handle source for better error message. Wasm has two format text and binary.
 // This trait handles them with one generics.

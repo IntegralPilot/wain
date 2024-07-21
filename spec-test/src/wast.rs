@@ -71,7 +71,9 @@ impl Const {
 }
 
 pub struct Script<'source> {
-    pub start: usize,
+    // The start field appears to be dead code, which is causing Clippy to fail and thus I can't `git push` without the post-commit hooks failing.
+    // I'm not sure if this is intended, but I've commented it out to remove the dead code and please Clippy.
+    // pub start: usize,
     pub commands: Vec<Command<'source>>,
 }
 
@@ -89,7 +91,10 @@ pub enum Command<'source> {
     EmbeddedModule(EmbeddedModule),
     InlineModule(ast::Root<'source, TextSource<'source>>),
 }
-impl<'s> Command<'s> {
+
+// This impl appears to be dead code, which is causing Clippy to fail and thus I can't `git push` without the post-commit hooks failing.
+// I'm not sure if this is intended, but I've commented it out to remove the dead code and please Clippy.
+/*impl<'s> Command<'s> {
     pub fn start_pos(&self) -> usize {
         match self {
             Command::AssertReturn(AssertReturn::Invoke { start, .. }) => *start,
@@ -105,7 +110,7 @@ impl<'s> Command<'s> {
             Command::InlineModule(r) => r.module.start,
         }
     }
-}
+}*/
 
 // (invoke {id}? {name} {constant}*)
 pub struct Invoke<'source> {
@@ -118,12 +123,19 @@ pub struct Invoke<'source> {
 // (register {name} {id}?)
 pub struct Register<'source> {
     pub start: usize,
+    // The name and id fields appear to be dead code, which is causing Clippy to fail and thus I can't `git push` without the post-commit hooks failing.
+    // However, they are used for assert! in the tests, so I've told clippy to ignore this.
+    #[allow(dead_code)]
     pub name: String,
+    #[allow(dead_code)]
     pub id: Option<&'source str>,
 }
 
 // (get {id}? {name})
 pub struct GetGlobal<'source> {
+    // The start field appears to be dead code, which is causing Clippy to fail and thus I can't `git push` without the post-commit hooks failing.
+    // This is used in the tests, so I've told clippy to ignore this.
+    #[allow(dead_code)]
     pub start: usize,
     pub id: Option<&'source str>,
     pub name: String,
@@ -176,7 +188,12 @@ pub struct AssertInvalid<'source> {
 pub struct AssertUnlinkable<'source> {
     pub start: usize,
     // module is put inline. The source is always text
+
+    // The wat and expected fields appear to be dead code, which is causing Clippy to fail and thus I can't `git push` without the post-commit hooks failing.
+    // However, they are used for assert! in the tests, so I've told clippy to ignore this.
+    #[allow(dead_code)]
     pub wat: ast::Root<'source, TextSource<'source>>,
+    #[allow(dead_code)]
     pub expected: String,
 }
 

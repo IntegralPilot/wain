@@ -1,10 +1,12 @@
+#![no_std]
 #![forbid(unsafe_code)]
 #![warn(clippy::dbg_macro)]
 
-pub mod source;
+extern crate alloc;
 
-use std::borrow::Cow;
-use std::fmt;
+use alloc::{borrow::Cow, fmt, vec::Vec};
+
+pub mod source;
 
 // Root of the tree
 #[derive(Clone, Debug, PartialEq)]
