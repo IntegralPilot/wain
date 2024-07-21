@@ -1,5 +1,8 @@
-use std::borrow::Cow;
-use std::fmt;
+use alloc::borrow::Cow;
+use alloc::boxed::Box;
+use alloc::fmt;
+use alloc::string::String;
+use alloc::vec::Vec;
 use wain_ast::source::Source;
 use wain_ast::*;
 
@@ -166,4 +169,4 @@ impl<S: Source> Error<S> {
     }
 }
 
-pub type Result<T, S> = ::std::result::Result<T, Box<Error<S>>>;
+pub type Result<T, S> = ::core::result::Result<T, Box<Error<S>>>;

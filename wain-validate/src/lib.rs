@@ -1,19 +1,23 @@
 // Module validation for Wasm module
 // - https://webassembly.github.io/spec/core/valid/index.html
 // - https://webassembly.github.io/spec/core/appendix/algorithm.html#algo-valid
+#![no_std]
 #![forbid(unsafe_code)]
 #![warn(clippy::dbg_macro)]
 
+extern crate alloc;
 extern crate wain_ast;
 
 mod error;
 mod insn;
 
+use alloc::string::ToString;
+use alloc::vec::Vec;
 pub use error::{Error, Result};
 
+use alloc::borrow::Cow;
 use error::ErrorKind;
-use std::borrow::Cow;
-use std::collections::HashMap;
+use hashbrown::HashMap;
 use wain_ast::source::Source;
 use wain_ast::*;
 
@@ -350,7 +354,7 @@ impl<'s, S: Source> Validate<'s, S> for Func<'s> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::fmt;
+    use alloc::{fmt, vec};
     use InsnKind::*;
 
     #[derive(Clone)]

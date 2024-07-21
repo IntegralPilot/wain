@@ -8,7 +8,9 @@
 
 use crate::error::{ErrorKind, Ordinal, Result};
 use crate::Context as OuterContext;
-use std::mem;
+use alloc::vec::Vec;
+use alloc::{format, vec};
+use core::mem;
 use wain_ast::source::Source;
 use wain_ast::*;
 
