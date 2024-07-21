@@ -5,8 +5,8 @@ use crate::leb128::Leb128;
 use crate::source::BinarySource;
 use alloc::borrow::Cow;
 use alloc::boxed::Box;
-use alloc::{str, vec};
 use alloc::vec::Vec;
+use alloc::{str, vec};
 use wain_ast::*;
 
 mod section_id {

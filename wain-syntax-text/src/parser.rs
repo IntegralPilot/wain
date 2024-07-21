@@ -1,16 +1,17 @@
 use crate::ast::*;
 use crate::lexer::{Float, LexError, Lexer, NumBase, Sign, Token};
 use crate::source::describe_position;
-use std::borrow::Cow;
-use std::char;
-use std::collections::HashMap;
-use std::f32;
-use std::f64;
-use std::fmt;
-use std::mem;
-use std::ops;
-use std::str;
-use std::str::FromStr;
+use alloc::borrow::Cow;
+use alloc::boxed::Box;
+use alloc::string::{String, ToString};
+use alloc::{fmt, format};
+use alloc::{vec, vec::Vec};
+use core::char;
+use core::mem;
+use core::ops;
+use core::str;
+use core::str::FromStr;
+use hashbrown::HashMap;
 
 #[cfg_attr(test, derive(Debug))]
 pub enum ParseErrorKind<'source> {
@@ -142,7 +143,7 @@ impl<'s> From<Box<LexError<'s>>> for Box<ParseError<'s>> {
     }
 }
 
-type Result<'s, T> = ::std::result::Result<T, Box<ParseError<'s>>>;
+type Result<'s, T> = ::core::result::Result<T, Box<ParseError<'s>>>;
 
 // iter::Peekable is not sufficient to parse WAT tokens
 // WAT requires LL(1) parser to see a token after '('
@@ -2258,8 +2259,10 @@ impl<'s> Parse<'s> for MemoryAbbrev<'s> {
                             }
                             parser.closing_paren("memory")?;
 
+                            use libm::ceil;
+
                             // Infer memory limits from page size (64 * 1024 = 65536)
-                            let n = (data.len() as f64 / 65536.0).ceil() as u32;
+                            let n = ceil(data.len() as f64 / 65536.0) as u32;
 
                             return Ok(MemoryAbbrev::Data(
                                 Memory {

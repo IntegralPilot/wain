@@ -1,10 +1,12 @@
 use crate::source::describe_position;
-use std::borrow::Cow;
-use std::char;
-use std::fmt;
-use std::iter;
-use std::ops;
-use std::str;
+use alloc::borrow::Cow;
+use alloc::boxed::Box;
+use alloc::fmt;
+use alloc::str;
+use alloc::vec;
+use core::char;
+use core::iter;
+use core::ops;
 
 #[cfg_attr(test, derive(Debug))]
 #[derive(Clone)]
@@ -59,7 +61,7 @@ impl<'s> fmt::Display for LexError<'s> {
     }
 }
 
-type Result<'s, T> = ::std::result::Result<T, Box<LexError<'s>>>;
+type Result<'s, T> = ::core::result::Result<T, Box<LexError<'s>>>;
 
 #[cfg_attr(test, derive(Debug))]
 #[derive(Clone, Copy, PartialEq)]
@@ -617,6 +619,8 @@ impl<'s> Iterator for Lexer<'s> {
 
 #[cfg(test)]
 mod tests {
+    use alloc::{vec, vec::Vec};
+
     use super::*;
 
     fn lex_all(s: &str) -> Result<'_, Vec<(Token<'_>, usize)>> {

@@ -1,8 +1,10 @@
 use crate::ast as wat;
 use crate::source::{describe_position, TextSource};
-use std::collections::HashMap;
-use std::fmt;
-use std::mem;
+use alloc::boxed::Box;
+use alloc::fmt;
+use alloc::{vec, vec::Vec};
+use core::mem;
+use hashbrown::HashMap;
 use wain_ast as wasm;
 
 #[cfg_attr(test, derive(Debug))]
@@ -101,7 +103,7 @@ impl<'s> fmt::Display for TransformError<'s> {
     }
 }
 
-type Result<'s, T> = ::std::result::Result<T, Box<TransformError<'s>>>;
+type Result<'s, T> = ::core::result::Result<T, Box<TransformError<'s>>>;
 
 type Indices<'s> = HashMap<&'s str, u32>;
 

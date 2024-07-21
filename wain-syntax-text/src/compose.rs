@@ -7,7 +7,12 @@
 // - m1.funcs = m1.tables = m1.mems = m1.globals = ϵ ∨ m2.imports = ϵ
 //
 use crate::source::describe_position;
-use std::fmt;
+use alloc::{
+    boxed::Box,
+    fmt, format,
+    string::{String, ToString},
+    vec::Vec,
+};
 use wain_ast::*;
 
 pub struct ComposeError<'source> {
@@ -50,7 +55,7 @@ impl<'s> fmt::Display for ComposeError<'s> {
     }
 }
 
-type Result<'s, T> = ::std::result::Result<T, Box<ComposeError<'s>>>;
+type Result<'s, T> = ::core::result::Result<T, Box<ComposeError<'s>>>;
 
 pub(crate) struct Composer<'source> {
     source: &'source str,

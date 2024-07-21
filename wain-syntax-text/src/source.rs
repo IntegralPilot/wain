@@ -1,4 +1,4 @@
-use std::fmt;
+use alloc::fmt;
 use wain_ast::source::Source;
 
 pub fn describe_position(f: &mut fmt::Formatter<'_>, source: &str, start: usize) -> fmt::Result {

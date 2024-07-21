@@ -1,8 +1,10 @@
+#![no_std]
 #![forbid(unsafe_code)]
 #![warn(clippy::dbg_macro)]
 #![allow(clippy::cognitive_complexity)]
 #![allow(clippy::manual_range_contains)]
 
+extern crate alloc;
 extern crate wain_ast;
 
 pub mod ast;
@@ -12,10 +14,10 @@ pub mod parser;
 pub mod source;
 pub mod wat2wasm;
 
+use alloc::{boxed::Box, fmt};
 use compose::{ComposeError, Composer};
 use parser::{ParseError, Parser};
 use source::TextSource;
-use std::fmt;
 use wat2wasm::{wat2wasm, TransformError};
 
 // TODO: Unify all error types into one error type

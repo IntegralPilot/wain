@@ -1,6 +1,6 @@
-use std::borrow::Cow;
-use std::collections::HashMap;
-use std::fmt;
+use alloc::fmt;
+use alloc::{borrow::Cow, vec::Vec};
+use hashbrown::HashMap;
 
 // TODO: Remove duplication between text format AST and binary format AST.
 // For example, wat::ValType and wasm::TableType has the same structure. So we can use
@@ -520,6 +520,8 @@ pub struct Start<'s> {
 
 #[cfg(test)]
 mod tests {
+    use alloc::vec;
+
     use super::*;
 
     #[test]
