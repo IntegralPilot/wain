@@ -32,11 +32,11 @@ binary = ["wain-syntax-binary"]
 text = ["wain-syntax-text"]
 
 [dependencies]
-wain-ast = { path = "./wain-ast", version = "0.2" }
-wain-syntax-text = { path = "./wain-syntax-text", version = "0.2", optional = true }
-wain-syntax-binary = { path = "./wain-syntax-binary", version = "0.1", optional = true }
-wain-validate = { path = "./wain-validate", version = "0.1" }
-wain-exec = { path = "./wain-exec", version = "0.3" }
+wain-ast = { path = "./wain-ast", version = "0.3" }
+wain-syntax-text = { path = "./wain-syntax-text", version = "0.3", optional = true }
+wain-syntax-binary = { path = "./wain-syntax-binary", version = "0.2", optional = true }
+wain-validate = { path = "./wain-validate", version = "0.2" }
+wain-exec = { path = "./wain-exec", version = "0.4" }
 
 [dev-dependencies]
 cargo-husky = { version = "1", features = ["run-cargo-clippy", "run-cargo-fmt"] }

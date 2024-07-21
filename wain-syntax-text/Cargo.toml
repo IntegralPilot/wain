@@ -1,6 +1,6 @@
 [package]
 name = "wain-syntax-text"
-version = "0.2.1"
+version = "0.3.0"
 authors = ["rhysd <lin90162@yahoo.co.jp>"]
 edition = "2021"
 description = "WebAssembly text format parser for wain project"
@@ -21,7 +21,7 @@ consolidate-commits = false
 [dependencies]
 hashbrown = { version = "0.14.5", optional = true }
 libm = { version = "0.2.8", optional = true }
-wain-ast = { path = "../wain-ast", version = "0.2" }
+wain-ast = { path = "../wain-ast", version = "0.3" }
 
 [features]
 default = []
