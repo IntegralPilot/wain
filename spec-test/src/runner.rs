@@ -43,9 +43,7 @@ mod color {
     pub const BLUE: &[u8] = b"";
 }
 
-// The Discard struct appears to be dead code, which is causing Clippy to fail and thus I can't `git push` without the post-commit hooks failing.
-// I'm not sure if this is intended, but I've commented it out to remove the dead code and please Clippy.
-/* struct Discard;
+struct Discard;
 
 impl io::Read for Discard {
     fn read(&mut self, _buf: &mut [u8]) -> io::Result<usize> {
@@ -60,7 +58,7 @@ impl io::Write for Discard {
     fn flush(&mut self) -> io::Result<()> {
         Ok(())
     }
-} */
+}
 
 #[derive(Default)]
 pub struct Summary {
