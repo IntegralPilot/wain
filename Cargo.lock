@@ -120,11 +120,11 @@ dependencies = [
 
 [[package]]
 name = "wain-ast"
-version = "0.3.0"
+version = "0.2.2"
 
 [[package]]
 name = "wain-exec"
-version = "0.4.0"
+version = "0.3.1"
 dependencies = [
  "libm",
  "wain-ast",
@@ -134,14 +134,14 @@ dependencies = [
 
 [[package]]
 name = "wain-syntax-binary"
-version = "0.2.0"
+version = "0.1.5"
 dependencies = [
  "wain-ast",
 ]
 
 [[package]]
 name = "wain-syntax-text"
-version = "0.3.0"
+version = "0.2.1"
 dependencies = [
  "hashbrown",
  "libm",
@@ -150,7 +150,7 @@ dependencies = [
 
 [[package]]
 name = "wain-validate"
-version = "0.2.0"
+version = "0.1.5"
 dependencies = [
  "hashbrown",
  "wain-ast",
