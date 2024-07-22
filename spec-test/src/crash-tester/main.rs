@@ -2,24 +2,59 @@ use std::env;
 use std::io;
 use std::io::{BufRead, Read};
 use std::process;
-use wain_exec::{DefaultImporter, Runtime, Value};
+use wain_exec::{Runtime, Value};
+
+#[cfg(not(feature = "no_std"))]
+use wain_exec::DefaultImporter;
+#[cfg(feature = "no_std")]
+use wain_exec::Importer;
+
 use wain_syntax_text::parser::Parser;
 use wain_syntax_text::wat2wasm::wat2wasm;
 
+#[cfg(not(feature = "no_std"))]
 struct Discard;
 
+#[cfg(not(feature = "no_std"))]
 impl io::Read for Discard {
     fn read(&mut self, _buf: &mut [u8]) -> io::Result<usize> {
         Ok(0)
     }
 }
 
+#[cfg(not(feature = "no_std"))]
 impl io::Write for Discard {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         Ok(buf.len())
     }
     fn flush(&mut self) -> io::Result<()> {
         Ok(())
+    }
+}
+
+#[cfg(feature = "no_std")]
+struct DummyImporter;
+
+#[cfg(feature = "no_std")]
+impl Importer for DummyImporter {
+    fn validate(
+        &self,
+        _name: &str,
+        _params: &[wain_ast::ValType],
+        _ret: Option<wain_ast::ValType>,
+    ) -> Option<wain_exec::ImportInvalidError> {
+        return Some(wain_exec::ImportInvalidError::NotFound);
+    }
+
+    fn call(
+        &mut self,
+        _name: &str,
+        _stack: &mut wain_exec::Stack,
+        _memory: &mut wain_exec::Memory,
+    ) -> Result<(), wain_exec::ImportInvokeError> {
+        return Err(wain_exec::ImportInvokeError::Fatal {
+            message: String::from("This function doesn't exist."),
+        });
     }
 }
 
@@ -84,7 +119,12 @@ fn main() {
 
     // Don't validate the tree since validation has been done in spec test
 
+    #[cfg(feature = "no_std")]
+    let importer = DummyImporter;
+
+    #[cfg(not(feature = "no_std"))]
     let importer = DefaultImporter::with_stdio(Discard, Discard);
+
     let mut runtime = match Runtime::instantiate(&ast.module, importer) {
         Ok(rt) => rt,
         Err(err) => panic!("cannot instantiate module '{}' at offset {}: {}", source, offset, err),

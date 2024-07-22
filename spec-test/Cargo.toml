@@ -20,8 +20,12 @@ name = "crash-tester"
 path = "src/crash-tester/main.rs"
 
 [dependencies]
-wain-ast = { path = "../wain-ast" }
+wain-ast = { path = "../wain-ast" } 
 wain-syntax-text = { path = "../wain-syntax-text" }
 wain-syntax-binary = { path = "../wain-syntax-binary" }
 wain-validate = { path = "../wain-validate" }
-wain-exec = { path = "../wain-exec" }
+wain-exec = { path = "../wain-exec" } 
+
+[features]
+default = []
+no_std = ["wain-syntax-text/no_std", "wain-validate/no_std", "wain-exec/no_std"]

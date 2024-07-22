@@ -38,6 +38,11 @@ cargo run -- ./pass/to/test.wast
 cargo run -- -f
 ```
 
+### Run the tests in `no_std` mode
+```
+cargo run --features=no_std
+```
+
 ### Compare results between two revisions
 
 For example, let's say to compare `your-branch` branch with `master` branch.
